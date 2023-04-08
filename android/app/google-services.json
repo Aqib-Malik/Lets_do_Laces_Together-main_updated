@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "567790697124",
+    "firebase_url": "https://let-s-do-lace-s-together-default-rtdb.firebaseio.com",
+    "project_id": "let-s-do-lace-s-together",
+    "storage_bucket": "let-s-do-lace-s-together.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:567790697124:android:127d2f7050e2e117134431",
+        "android_client_info": {
+          "package_name": "com.sadan.lets_do_laces_togetherr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "567790697124-f6on48srttomam0s54dk9tpmb9ba80uk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sadan.lets_do_laces_togetherr",
+            "certificate_hash": "14a23cf04801b4b3938d92ad78500f7c3002b645"
+          }
+        },
+        {
+          "client_id": "567790697124-50p33mti3s15n36lbiqup0oprd9cs3hf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeE2HwN3BhvAJ1coQ9aPIC95ircPIdf3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "567790697124-50p33mti3s15n36lbiqup0oprd9cs3hf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "567790697124-g217crblh3dfmh4e1vqbg3uqfr4jvgcu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.letsDoLacesTogether"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
