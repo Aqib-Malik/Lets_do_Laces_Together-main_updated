@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,21 +28,22 @@ class _LadiesGridViewState extends State<GentsListViewShowingCustomerPanel> {
     return SizedBox(
       child: Expanded(
         child: StreamBuilder(
-            stream: authController.ref.onValue,
-            builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
-              if (!snapshot.hasData) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                );
-              } else {
-                Map<dynamic, dynamic> map =
-                    snapshot.data?.snapshot.value as dynamic;
-                List<dynamic> list = [];
-                list.clear();
-                list = map.values.toList();
-                list.removeWhere((item) => item['type'] == 'Ladies');
+          stream: FirebaseFirestore.instance.collection('Posts').snapshots(),//authController.ref.onValue,
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              );
+            } else {
+              print(snapshot.data?.docs );
+              // Map<dynamic, dynamic> map =
+              //     snapshot.data?.snapshot.value as dynamic;
+              List<dynamic> list = [];
+              list.clear();
+              list = snapshot.data?.docs ?? [];//map.values.toList();
+              list.removeWhere((item) => item['type'] == 'Ladies');
                 return ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

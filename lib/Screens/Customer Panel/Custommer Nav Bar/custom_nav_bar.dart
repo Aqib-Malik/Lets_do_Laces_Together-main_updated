@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/Customer_profile/customer_profile_screen.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/tailor_list.dart/tailor_list.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../customer_home_screen.dart';
+
 
 class CustommerBottomNavBar extends StatefulWidget {
   const CustommerBottomNavBar({Key? key}) : super(key: key);
@@ -86,6 +88,7 @@ class _CustommerBottomNavBarState extends State<CustommerBottomNavBar> {
   List<Widget> _screens() {
     return [
       const CustomerHomeScreen(),
+      TailorList(),
       CustomerProfileView(uid: FirebaseAuth.instance.currentUser?.uid),
     ];
   }
@@ -96,6 +99,11 @@ class _CustommerBottomNavBarState extends State<CustommerBottomNavBar> {
         icon: const Icon(Icons.home_outlined),
         activeColorPrimary: Colors.white,
         inactiveIcon: Icon(Icons.home, color: Colors.grey.shade100),
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.people_alt_outlined),
+        activeColorPrimary: Colors.white,
+        inactiveIcon: Icon(Icons.people, color: Colors.grey.shade100),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.person_outline),

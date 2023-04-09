@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lets_do_laces_together/Screens/Tailor%20Panel/order_notification.dart';
 import 'package:lets_do_laces_together/Screens/Tailor%20Panel/tailor_profile.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 import '../../Controller/auth_controller.dart';
@@ -122,6 +123,31 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       ));
                     },
                   ),
+                   ListTile(
+                    title: Row(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.home,
+                          size: 23,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            "Notifications",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      Get.to(NotificationScreen());
+                    },
+                  ),
+                 
                   ListTile(
                     title: Row(
                       children: const <Widget>[

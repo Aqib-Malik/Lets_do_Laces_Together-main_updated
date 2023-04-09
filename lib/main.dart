@@ -5,15 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/Custommer%20Nav%20Bar/custom_nav_bar.dart';
+import 'Screens/Customer Panel/tailor_list.dart/measurement_form.dart';
 import 'Screens/Tailor Panel/Model/controller/controller.dart';
+import 'Screens/Tailor Panel/notification.dart';
+import 'Screens/Tailor Panel/order_notification.dart';
 import 'splash_screen.dart';
-import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-);
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   Get.put(LadiesCardController());
   runApp(const MyApp());
 }
@@ -40,7 +41,12 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const SplashScreen(),
+      child: 
+      // NotificationScreen(),
+      // TailorNotification()
+      // MeasurementForm()
+      // CustommerBottomNavBar()
+      const SplashScreen(),
     );
   }
 }
