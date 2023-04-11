@@ -160,11 +160,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
+                             authController
+                            .isDocumentExists("shop", _emailController.text)
+                            .then((value) {
+                          if (value) {
                             authController.login(
                                 _emailController.text.toString(),
                                 _passwordController.text.toString(),
                                 context);
+                          
+                          } else {
+                            Get.snackbar(
+                              'Invalid',
+                              'Invalid Credentials',
+                              icon: const Icon(Icons.error, color: Colors.red),
+                              snackPosition: SnackPosition.TOP,
+                            );
                           }
+                        });
+                            }
                         },
                       ),
                     ),

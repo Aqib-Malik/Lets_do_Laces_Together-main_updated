@@ -105,15 +105,15 @@ class _AdminLoginState extends State<AdminLogin> {
               CustomTextField(
                 obscureText: false,
                 controller: _passwordController,
-                validate: (value) {
-                  if (GetUtils.isLengthGreaterOrEqual(value, 8) &&
-                      GetUtils.hasMatch(
-                          value, r'(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])')) {
-                    return null;
-                  } else {
-                    return 'Password must contain at least 8 characters and at least one uppercase letter, one lowercase letter, and one number.';
-                  }
-                },
+                // validate: (value) {
+                //   if (GetUtils.isLengthGreaterOrEqual(value, 8) &&
+                //       GetUtils.hasMatch(
+                //           value, r'(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])')) {
+                //     return null;
+                //   } else {
+                //     return 'Password must contain at least 8 characters and at least one uppercase letter, one lowercase letter, and one number.';
+                //   }
+                // },
                 icon: Icon(
                   Icons.lock,
                   color: AppColors.backGroundColor,
@@ -141,8 +141,28 @@ class _AdminLoginState extends State<AdminLogin> {
                               fontSize: 18),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            Get.to(() => AdminDashboard());
+                          if (_emailController.text.isNotEmpty &&
+                              _passwordController.text.isNotEmpty) {
+                            if (_formKey.currentState!.validate()) {
+                              if (_emailController.text == "admin@gmail.com") {
+                                Get.to(() => AdminDashboard());
+                              } else {
+                                Get.snackbar(
+                                  'Invalid',
+                                  'Invalid Credentials',
+                                  icon: const Icon(Icons.error,
+                                      color: Colors.red),
+                                  snackPosition: SnackPosition.TOP,
+                                );
+                              }
+                            }
+                          } else {
+                            Get.snackbar(
+                              'Empty',
+                              'Invalid Credentials',
+                              icon: const Icon(Icons.error, color: Colors.red),
+                              snackPosition: SnackPosition.TOP,
+                            );
                           }
                         },
                       ),
@@ -151,18 +171,18 @@ class _AdminLoginState extends State<AdminLogin> {
               SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 140),
-                child: Center(
-                  child: Text(
-                    "FORGOT PASSWORD ?",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 140),
+              //   child: Center(
+              //     child: Text(
+              //       "FORGOT PASSWORD ?",
+              //       style: TextStyle(
+              //           color: Colors.black,
+              //           fontSize: 12,
+              //           fontWeight: FontWeight.w700),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

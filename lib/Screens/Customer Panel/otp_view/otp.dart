@@ -6,8 +6,13 @@ import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 import 'package:lets_do_laces_together/Utils/AppImages/app_images.dart';
 
 class OTPView extends StatefulWidget {
+
   final String verificationID;
-  const OTPView({Key? key, required this.verificationID}) : super(key: key);
+  // final String email;
+  // final String password;
+  const OTPView({Key? key, required this.verificationID, 
+  // required this.email, required this.password
+  }) : super(key: key);
 
   @override
   State<OTPView> createState() => _LoginViewState();

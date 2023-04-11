@@ -36,8 +36,8 @@ class _TailorListState extends State<TailorList> {
             setState(() {
               _tailorsStream = FirebaseFirestore.instance
                   .collection('shop')
-                  .where('name', isGreaterThanOrEqualTo: value)
-                  .where('name', isLessThanOrEqualTo: value + '\uf8ff')
+                  .where('city', isGreaterThanOrEqualTo: value)
+                  .where('city', isLessThanOrEqualTo: value + '\uf8ff')
                   .snapshots();
             });
           },

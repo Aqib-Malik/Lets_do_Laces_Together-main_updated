@@ -75,6 +75,9 @@ class _TailorNotificationState extends State<TailorNotification> {
     ),
   ];
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

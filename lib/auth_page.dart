@@ -2,13 +2,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/customer_login_new.dart';
 import 'package:lets_do_laces_together/Screens/siginup_screen.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 
 import 'Utils/AppImages/app_images.dart';
 import 'Widgets/assets.dart';
 import 'Screens/Admin Panel/admin_login_screen.dart';
-import 'Screens/Customer Panel/customer_login.dart';
+import 'Screens/Customer Panel/customer_signup.dart';
 import 'Screens/login_screen.dart';
 
 class AuthPage extends StatelessWidget {
@@ -59,7 +60,7 @@ class AuthPage extends StatelessWidget {
                           child: const Text("Login As A Customer",
                               style: TextStyle(color: Colors.black)),
                           onPressed: () {
-                            Get.to(const CustomerLogin());
+                            Get.to(const CustomerLoginNew());
                           },
                         ),
                       ),
@@ -117,6 +118,24 @@ class AuthPage extends StatelessWidget {
                             Get.to(const SignUpScreen());
                           },
                           child: Text("Create Your Shop",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.backGroundColor,
+                                decoration: TextDecoration.underline,
+                              )),
+                        ))
+                      ])),
+                       const SizedBox(
+                        height: 20,
+                      ),
+                      Text.rich(TextSpan(children: [
+                        const TextSpan(text: "Don't Have An Account? "),
+                        WidgetSpan(
+                            child: InkWell(
+                          onTap: () {
+                            Get.to(const CustomerLogin());
+                          },
+                          child: Text("Sign up",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.backGroundColor,

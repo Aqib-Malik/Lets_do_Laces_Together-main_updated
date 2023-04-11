@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:lets_do_laces_together/Screens/Admin%20Panel/order_lists.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
+import 'package:lets_do_laces_together/Views/users/customer_list.dart';
+import 'package:lets_do_laces_together/Views/users/tailor_list.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
@@ -10,6 +15,43 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
+  int coustomers=0;
+  int tailors=0;
+  final CollectionReference customerCollection = FirebaseFirestore.instance.collection('customer');
+  final CollectionReference tailorCollection = FirebaseFirestore.instance.collection('shop');
+
+  Future<int> countDocuments(CollectionReference collection) async {
+  QuerySnapshot snapshot = await collection.get();
+  int count = snapshot.size;
+  return count;
+}
+
+setdata()async{
+  await countDocuments(customerCollection).then((value) async{
+   setState(() {
+      coustomers=value;
+   });
+ await countDocuments(tailorCollection).then((nesvalue) {
+   setState(() {
+      tailors=nesvalue;
+   });
+
+   
+    
+
+  });
+
+
+    
+
+  });
+}
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setdata();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,55 +84,65 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: 160,
-                      width: 160,
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.blue[300],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            Text(
-                              '+120',
-                              style: TextStyle(
-                                  fontSize: 21,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Tailors',
-                              style: TextStyle(
-                                  fontSize: 16, color: Colors.black38),
-                            ),
-                          ],
+                    InkWell(
+                      onTap: (){
+                        Get.to(TailorsList());
+                      },
+                      child: SizedBox(
+                        height: 160,
+                        width: 160,
+                        child: Card(
+                          elevation: 2,
+                          color: Colors.blue[300],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children:  [
+                              Text(
+                                '+'+tailors.toString(),
+                                style: TextStyle(
+                                    fontSize: 21,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Tailors',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.black38),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 160,
-                      width: 160,
-                      child: Card(
-                        elevation: 2,
-                        color: Colors.green[300],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            Text(
-                              '+600',
-                              style: TextStyle(
-                                  fontSize: 21,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              'Customer',
-                              style: TextStyle(
-                                  fontSize: 16, color: Colors.black38),
-                            ),
-                          ],
+                    InkWell(
+                      onTap: (){
+                        Get.to(CustomerList());
+                      },
+                      child: SizedBox(
+                        height: 160,
+                        width: 160,
+                        child: Card(
+                          elevation: 2,
+                          color: Colors.green[300],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children:  [
+                              Text(
+                                '+'+coustomers.toString(),
+                                style: TextStyle(
+                                    fontSize: 21,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Customer',
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.black38),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -102,52 +154,51 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      height: 160,
-                      width: 160,
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(13),
-                        ),
-                        color: Colors.orange[300],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.done,
-                              size: 50,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Row(
-                                children: const [
-                                  Text(
-                                    'Approved Requests:',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    '56',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+                    InkWell(
+                      onTap: (){
+                        Get.to(OrderListScreen());
+                      },
+                      child: SizedBox(
+                        height: 160,
+                        width: 160,
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          color: Colors.orange[300],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.shop,
+                                size: 50,
+                                color: Colors.white,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                          ],
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Row(
+                                  children: const [
+                                    Text(
+                                      'Orders',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

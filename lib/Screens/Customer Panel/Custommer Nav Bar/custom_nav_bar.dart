@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/Customer_profile/customer_profile_screen.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/my_controller.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/tailor_list.dart/tailor_list.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -15,6 +17,7 @@ class CustommerBottomNavBar extends StatefulWidget {
 }
 
 class _CustommerBottomNavBarState extends State<CustommerBottomNavBar> {
+  HomeController hcontroller=Get.put(HomeController());
   final controller = PersistentTabController(initialIndex: 0);
 
   Future<bool> showWarning(BuildContext context) async => await showDialog(

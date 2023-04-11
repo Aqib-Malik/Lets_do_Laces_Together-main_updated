@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/my_controller.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 
 class MeasurementForm extends StatefulWidget {
@@ -14,6 +16,7 @@ class MeasurementForm extends StatefulWidget {
 }
 
 class _MeasurementFormState extends State<MeasurementForm> {
+  HomeController controller=Get.put(HomeController());
   final _formKey = GlobalKey<FormState>();
   String? _name;
   double _neckSize = 0.0; // Initialize with default values
@@ -177,9 +180,15 @@ class _MeasurementFormState extends State<MeasurementForm> {
                           "inseamLength": _inseamLength,
                           "tailor_email":this.widget.email,
                           "is_approve": false,
-                          "is_pending": true,
+                          "is_pending": false,
                           "is_completed":false,
+                          "is_rejected":false,
                           "Gender":_gender,
+                          "customer_email":controller.email.value.toString(),
+                          "customer_image":controller.image.value.toString(),
+                          "customer_name":controller.name.value.toString(),
+                          "customer_address":controller.address.value.toString(),
+                          "customer_phone":controller.phone.value.toString(),
                         }).whenComplete(() {
                          
 

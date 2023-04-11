@@ -1,20 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 
-class NotificationScreen extends StatefulWidget {
+class CustomerNotificationScreen extends StatefulWidget {
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  State<CustomerNotificationScreen> createState() => _NotificationScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _NotificationScreenState extends State<CustomerNotificationScreen> {
   late Stream<QuerySnapshot> _tailorsStream;
 
   @override
   void initState() {
     super.initState();
-    _tailorsStream = FirebaseFirestore.instance.collection('order').snapshots();
+    _tailorsStream = FirebaseFirestore.instance.collection('order').where("customer_email",isEqualTo: FirebaseAuth.instance.currentUser!.email).snapshots();
   }
 
   @override
@@ -22,7 +24,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Orders Notifications',
+          'Orders Status',
           style: TextStyle(
             color: Color.fromARGB(255, 244, 240, 240),
             fontWeight: FontWeight.bold,
@@ -31,7 +33,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
         backgroundColor: AppColors.backGroundColor,
         elevation: 0,
       ),
-      // backgroundColor: AppColors.backGroundColor,
       body: SizedBox(
         child: Expanded(
           child: StreamBuilder(
@@ -44,17 +45,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   ),
                 );
               } else {
-                List<dynamic> list = snapshot.data?.docs ?? [];
                 return ListView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: list.length,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data!.size,
                   itemBuilder: (context, index) {
+                    final item = snapshot.data!.docs[index];
                     return notificationWidget(
-                      list[index],
-                      list[index]['name'],
-                      list[index]['tailor_email'],
-                      list[index]['Gender'] == "female" ? false : true,
+                      item,
+                      item['name'],
+                      item['name'],
+                      item['Gender'] == "female" ? false : true,
                       context,
                     );
                   },
@@ -67,7 +68,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Widget notificationWidget(item,title, email, isMale, context) {
+  Widget notificationWidget(item, title, name, isMale, context) {
     return Padding(
       padding: const EdgeInsets.all(14.0),
       child: Neumorphic(
@@ -101,12 +102,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   Container(
                     width: 300,
                     child: Text(
-                       title+' (Order Request)',
+                      title + ' (Order Request)',
                       style: TextStyle(
                         color: NeumorphicTheme.baseColor(context),
                         fontWeight: FontWeight.bold,
                         fontSize: 24.0,
-                           
                       ),
                     ),
                   ),
@@ -121,7 +121,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
               SizedBox(height: 20.0),
               Text(
-                'Email:',
+                'Name:',
                 style: TextStyle(
                   color: Color.fromARGB(252, 255, 255, 255),
                   fontWeight: FontWeight.bold,
@@ -130,58 +130,124 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
               SizedBox(height: 5.0),
               Text(
-                email,
+                name,
                 style: TextStyle(
                   color: NeumorphicTheme.accentColor(context),
                   fontSize: 16.0,
                 ),
               ),
               SizedBox(height: 20.0),
-              Row(
+               item["is_rejected"]?Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                 item["is_rejected"]?
                   Expanded(
-                    child: NeumorphicButton(
+                    child:
+                    NeumorphicButton(
                       onPressed: () {
-                        // FirebaseFirestore.instance.collection("order")
+                       
                       },
                       child: Text(
-                        'REJECT',
+                        'Order Rejected',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.red,
                         ),
                       ),
                       style: NeumorphicStyle(
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 255, 7, 7),
                         boxShape: NeumorphicBoxShape.roundRect(
                           BorderRadius.circular(30.0),
                         ),
                       ),
-                    ),
+                    )
+                  ):SizedBox(),
+               
+                ],
+              ):
+              
+             Column(
+               children: [
+                 Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      item["is_completed"]?
+                      Expanded(
+                        child:
+                        NeumorphicButton(
+                          onPressed: () {
+                           
+                          },
+                          child: Text(
+                            'Order Completed',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: NeumorphicStyle(
+                            color: Colors.amber,
+                            boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(30.0),
+                            ),
+                          ),
+                        )
+                      ):SizedBox(),
+                         SizedBox(width: 20.0),
+                         item["is_completed"]==false && item["is_approve"]?
+                      Expanded(
+                        child:NeumorphicButton(
+                          onPressed: () {
+                          },
+                          child: Text(
+                            'Not Compleed yet..',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: NeumorphicStyle(
+                            color: Color.fromARGB(255, 47, 255, 0),
+                            boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(30.0),
+                            ),
+                          ),
+                        )):SizedBox()
+                   
+                    ],
                   ),
-                  SizedBox(width: 20.0),
+                  Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                 item["is_completed"]==false && item["is_approve"]==false?
                   Expanded(
-                    child: NeumorphicButton(
-                      onPressed: () {},
+                    child:
+                    NeumorphicButton(
+                      onPressed: () {
+                       
+                      },
                       child: Text(
-                        'APPROVE',
+                        'Aprovel pending....',
                         style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       style: NeumorphicStyle(
-                        color: Color(0xff00BFFF),
+                        color: Colors.amber,
                         boxShape: NeumorphicBoxShape.roundRect(
                           BorderRadius.circular(30.0),
                         ),
                       ),
-                    ),
-                  ),
+                    )
+                  ):SizedBox(),
+               
                 ],
               ),
+              
+               ],
+             ),
+              
             ],
           ),
         ),

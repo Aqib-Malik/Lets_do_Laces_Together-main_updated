@@ -10,25 +10,22 @@ import 'package:lets_do_laces_together/Widgets/custtom_text_field.dart';
 import '../../Utils/AppImages/app_images.dart';
 import '../../Widgets/shop_creat_iamage_picker.dart';
 
-class CustomerLogin extends StatefulWidget {
-  const CustomerLogin({Key? key}) : super(key: key);
+class CustomerLoginNew extends StatefulWidget {
+  const CustomerLoginNew({Key? key}) : super(key: key);
 
   @override
-  State<CustomerLogin> createState() => _CustomerLoginState();
+  State<CustomerLoginNew> createState() => _CustomerLoginNewState();
 }
 
-class _CustomerLoginState extends State<CustomerLogin> {
+class _CustomerLoginNewState extends State<CustomerLoginNew> {
   final authController = Get.put(AuthController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _phoneController.dispose();
     super.dispose();
   }
 
@@ -77,7 +74,7 @@ class _CustomerLoginState extends State<CustomerLogin> {
                       color: Colors.grey,
                     ),
                     const Text(
-                      'Log In or Sign Up',
+                      'Log In',
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
@@ -91,35 +88,6 @@ class _CustomerLoginState extends State<CustomerLogin> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AvatarPicker(
-                      size: 100.0,
-                      onImageSelected: (File image) {
-                        setState(() {
-                          _image = File(image.path);
-                        });
-                      },
-                      defaultImage: 'https://via.placeholder.com/150',
-                    ),
-                  ],
-                ),
-                CustomTextField(
-                    obscureText: false,
-                    controller: _nameController,
-                    validate: (value) {
-                      if (value != null && value.isNotEmpty) {
-                        return null;
-                      } else {
-                        return 'Full name is required';
-                      }
-                    },
-                    icon: Icon(
-                      Icons.person,
-                      color: AppColors.backGroundColor,
-                    ),
-                    hintText: "Name"),
                 CustomTextField(
                     obscureText: false,
                     controller: _emailController,
@@ -134,35 +102,33 @@ class _CustomerLoginState extends State<CustomerLogin> {
                       color: AppColors.backGroundColor,
                     ),
                     hintText: "Email"),
-                CustomTextField(
-                    obscureText: false,
-                    controller: _phoneController,
-                    validate: (value) {
-                      if (!GetUtils.isPhoneNumber(value!)) {
-                        return 'please enter valid phone number';
+                Obx(() {
+                  return CustomTextField(
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          authController.obscurePassword();
+                        },
+                        icon: Icon(
+                          authController.isObscurePass.value == false
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: AppColors.backGroundColor,
+                        )),
+                    obscureText: authController.isObscurePass.value,
+                    controller: _passwordController,
+                    validate: (String? value) {
+                      if (!GetUtils.isLengthGreaterOrEqual(value, 6)) {
+                        return 'password must be 6 characters or greater';
                       }
                       return null;
                     },
                     icon: Icon(
-                      Icons.phone,
+                      Icons.lock,
                       color: AppColors.backGroundColor,
                     ),
-                    hintText: "Phone Number"),
-                CustomTextField(
-                    obscureText: false,
-                    controller: _addressController,
-                    validate: (value) {
-                      if (value != null && value.isNotEmpty) {
-                        return null;
-                      } else {
-                        return 'Address is required';
-                      }
-                    },
-                    icon: Icon(
-                      Icons.location_on_outlined,
-                      color: AppColors.backGroundColor,
-                    ),
-                    hintText: "Address"),
+                    hintText: 'Password',
+                  );
+                }),
                 SizedBox(height: 40.h),
                 Container(
                   width: double.infinity,
@@ -180,24 +146,23 @@ class _CustomerLoginState extends State<CustomerLogin> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        if (_image != null) {
-                          Reference ref = FirebaseStorage.instance
-                              .ref()
-                              .child('customerImg/${_image!.path}');
-                          UploadTask uploadTask = ref.putFile(_image!);
-                          final TaskSnapshot taskSnapshot =
-                              await uploadTask.whenComplete(() {});
-                          var imageUrl =
-                              await taskSnapshot.ref.getDownloadURL();
-                          print("img url ${imageUrl.toString()}");
-                          authController.phoneNumber(
-                              _nameController.text.toString(),
-                              _emailController.text.toString(),
-                              _phoneController.text.toString(),
-                              _addressController.text.toString(),
-                              imageUrl.toString(),
-                              context);
-                        }
+                        authController
+                            .isDocumentExists("customer", _emailController.text)
+                            .then((value) {
+                          if (value) {
+                            authController.Customerlogin(
+                                _emailController.text.toString(),
+                                _passwordController.text.toString(),
+                                context);
+                          } else {
+                            Get.snackbar(
+                              'Invalid',
+                              'Invalid Credentials',
+                              icon: const Icon(Icons.error, color: Colors.red),
+                              snackPosition: SnackPosition.TOP,
+                            );
+                          }
+                        });
                       }
                     },
                   ),

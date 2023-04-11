@@ -6,10 +6,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/Custommer%20Nav%20Bar/custom_nav_bar.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/customer_login_new.dart';
+import 'Screens/Admin Panel/admin_login_screen.dart';
+import 'Screens/Customer Panel/customer_signup.dart';
 import 'Screens/Customer Panel/tailor_list.dart/measurement_form.dart';
 import 'Screens/Tailor Panel/Model/controller/controller.dart';
 import 'Screens/Tailor Panel/notification.dart';
-import 'Screens/Tailor Panel/order_notification.dart';
+import 'Screens/Tailor Panel/orderLists/order_notification.dart';
+// import 'Views/Admin Panel/admin_login_screen.dart';
 import 'splash_screen.dart';
 
 void main() async {
@@ -42,6 +46,9 @@ class MyApp extends StatelessWidget {
         );
       },
       child: 
+      // AdminLogin()
+      // AdminLogin()
+      // CustomerLoginNew()
       // NotificationScreen(),
       // TailorNotification()
       // MeasurementForm()

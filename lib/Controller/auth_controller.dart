@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/customer_signup.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/customer_login_new.dart';
 import 'package:lets_do_laces_together/Screens/login_screen.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 
@@ -46,6 +48,61 @@ class AuthController extends GetxController {
   void removeValue(int value) {
     selectedValue.remove(value);
   }
+
+
+
+//TODO: Customer login
+  Future<void> Customerlogin(
+    String? email,
+    String? password,
+    BuildContext context,
+  ) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: CircularProgressIndicator(
+            color: AppColors.backGroundColor,
+          ),
+        );
+      },
+      barrierDismissible: false,
+    );
+
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+        email: email!,
+        password: password!,
+      )
+          .then((value) {
+        Navigator.of(context).pop();
+        Get.to(() => CustommerBottomNavBar());
+        Get.snackbar(
+          'Congratulation',
+          'Successfully Login',
+          icon: const Icon(Icons.error, color: Colors.red),
+          snackPosition: SnackPosition.TOP,
+        );
+      });
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar(
+        'Failed ${e.code}',
+        '${e.message}',
+        icon: const Icon(Icons.error, color: Colors.red),
+        snackPosition: SnackPosition.TOP,
+      );
+      Navigator.of(context).pop();
+    }
+  }
+
+
+
+
+
+
+
+
 
 //TODO: Tailer login
   Future<void> login(
@@ -125,7 +182,8 @@ class AuthController extends GetxController {
         password: password!,
       )
           .then((value) {
-        users.doc(FirebaseAuth.instance.currentUser!.uid).set({
+
+        users.doc(FirebaseAuth.instance.currentUser!.email).set({
           'uid': FirebaseAuth.instance.currentUser!.uid,
           'shopName': shopName!,
           'name': fullName!,
@@ -415,6 +473,7 @@ class AuthController extends GetxController {
   Future<void> phoneNumber(
     String? name,
     String? email,
+    String? password,
     String? phoneNumber,
     String? address,
     String? img,
@@ -449,6 +508,8 @@ class AuthController extends GetxController {
                     context,
                     MaterialPageRoute(
                         builder: (context) => OTPView(
+                          // email: email,
+                          // password: password,
                               verificationID: verificationId,
                             )));
               },
@@ -461,7 +522,8 @@ class AuthController extends GetxController {
                 );
               })
           .then((value) {
-        customer.doc(FirebaseAuth.instance.currentUser!.uid).set({
+            FirebaseAuth.instance.createUserWithEmailAndPassword(email: email!, password: password!).whenComplete(() {
+                   customer.doc(email).set({
           'uid': FirebaseAuth.instance.currentUser!.uid,
           'name': name!,
           'email': email!,
@@ -469,6 +531,8 @@ class AuthController extends GetxController {
           'address': address!,
           'img': img!,
         });
+       
+            });
         Navigator.of(context).pop();
       });
     } on FirebaseAuthException catch (e) {
@@ -505,8 +569,12 @@ class AuthController extends GetxController {
       await FirebaseAuth.instance
           .signInWithCredential(credential)
           .then((value) {
+            // FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password)
+               
+
+
         Navigator.of(context).pop();
-        Get.offAll(CustommerBottomNavBar());
+        Get.offAll(CustomerLoginNew());
         Get.snackbar(
           'Congratulation',
           'Successfully Register',
@@ -645,4 +713,15 @@ class AuthController extends GetxController {
       );
     }
   }
+
+
+
+
+  Future<bool> isDocumentExists(String collectionPath, String documentId) async {
+  final documentSnapshot = await FirebaseFirestore.instance
+      .collection(collectionPath)
+      .doc(documentId)
+      .get();
+  return documentSnapshot.exists;
+}
 }
