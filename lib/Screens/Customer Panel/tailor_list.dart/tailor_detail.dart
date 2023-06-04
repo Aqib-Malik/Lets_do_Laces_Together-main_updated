@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ExpertScreen extends StatelessWidget {
   final String imageUrl;
+  final String rate;
   final String name;
   final String title;
   final String phone;
@@ -14,6 +15,7 @@ class ExpertScreen extends StatelessWidget {
   final String email;
 
   ExpertScreen({
+    required this.rate,
     required this.imageUrl,
     required this.name,
     required this.title,
@@ -69,6 +71,16 @@ class ExpertScreen extends StatelessWidget {
                       color: Colors.grey[600],
                     ),
                   ),
+                  SizedBox(height: 8),
+
+                  Row(
+                    children: [
+                      Icon(Icons.price_change_rounded),
+                            SizedBox(width: 8),
+                            Text(rate),
+                    ],
+                  ),
+                        
                   SizedBox(height: 16),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -117,7 +129,7 @@ class ExpertScreen extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        Get.to(MeasurementForm(email:email));
+                        Get.to(MeasurementForm(email:email,rate: this.rate,));
                       },
                       child: Container(
                         height: 50,

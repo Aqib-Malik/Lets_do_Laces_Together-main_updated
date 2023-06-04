@@ -144,6 +144,7 @@ class _AdminLoginState extends State<AdminLogin> {
                           if (_emailController.text.isNotEmpty &&
                               _passwordController.text.isNotEmpty) {
                             if (_formKey.currentState!.validate()) {
+                              print(_emailController.text);
                               if (_emailController.text == "admin@gmail.com") {
                                 Get.to(() => AdminDashboard());
                               } else {

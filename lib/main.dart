@@ -7,6 +7,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/Custommer%20Nav%20Bar/custom_nav_bar.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/customer_login_new.dart';
+import 'package:lets_do_laces_together/Screens/brand_panel/add_brand.dart';
+import 'package:lets_do_laces_together/Screens/brand_panel/brands.dart';
 import 'Screens/Admin Panel/admin_login_screen.dart';
 import 'Screens/Customer Panel/customer_signup.dart';
 import 'Screens/Customer Panel/tailor_list.dart/measurement_form.dart';
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'First Method',
+          title: 'Lets do Laces Together',
 
           // You can use the library anywhere in the app even in theme
           theme: ThemeData(
@@ -46,13 +48,8 @@ class MyApp extends StatelessWidget {
         );
       },
       child: 
-      // AdminLogin()
-      // AdminLogin()
-      // CustomerLoginNew()
-      // NotificationScreen(),
-      // TailorNotification()
-      // MeasurementForm()
-      // CustommerBottomNavBar()
+      // AddBrandPage()
+      // BrandScreen()
       const SplashScreen(),
     );
   }

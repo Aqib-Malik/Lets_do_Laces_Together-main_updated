@@ -170,74 +170,74 @@ class _CustomerLoginNewState extends State<CustomerLoginNew> {
                 SizedBox(
                   height: 30.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 1,
-                      width: 130,
-                      color: Colors.grey,
-                    ),
-                    const Text(
-                      'OR',
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
-                    Container(
-                      height: 1,
-                      width: 130,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        authController.googleSignup(context);
-                      },
-                      child: Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: AppColors.backGroundColor,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(50))),
-                        child: Image.asset(
-                          AppImages.googleIcon,
-                          height: 70,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        authController.facebook(context);
-                      },
-                      child: Container(
-                        height: 60,
-                        width: 60,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: AppColors.backGroundColor,
-                            ),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(50))),
-                        child: Image.asset(
-                          AppImages.facebookIcon,
-                          height: 70,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Container(
+                //       height: 1,
+                //       width: 130,
+                //       color: Colors.grey,
+                //     ),
+                //     const Text(
+                //       'OR',
+                //       style: TextStyle(fontSize: 15, color: Colors.grey),
+                //     ),
+                //     Container(
+                //       height: 1,
+                //       width: 130,
+                //       color: Colors.grey,
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 30.h,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: [
+                //     InkWell(
+                //       onTap: () {
+                //         authController.googleSignup(context);
+                //       },
+                //       child: Container(
+                //         height: 60,
+                //         width: 60,
+                //         decoration: BoxDecoration(
+                //             border: Border.all(
+                //               color: AppColors.backGroundColor,
+                //             ),
+                //             borderRadius:
+                //                 const BorderRadius.all(Radius.circular(50))),
+                //         child: Image.asset(
+                //           AppImages.googleIcon,
+                //           height: 70,
+                //         ),
+                //       ),
+                //     ),
+                //     InkWell(
+                //       onTap: () {
+                //         authController.facebook(context);
+                //       },
+                //       child: Container(
+                //         height: 60,
+                //         width: 60,
+                //         decoration: BoxDecoration(
+                //             border: Border.all(
+                //               color: AppColors.backGroundColor,
+                //             ),
+                //             borderRadius:
+                //                 BorderRadius.all(Radius.circular(50))),
+                //         child: Image.asset(
+                //           AppImages.facebookIcon,
+                //           height: 70,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: 30.h,
+                // ),
                 const Text('By continuing you agree to our'),
                 const Text(
                   'Terms of services Privacy Policy',

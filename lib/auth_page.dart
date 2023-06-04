@@ -125,9 +125,11 @@ class AuthPage extends StatelessWidget {
                               )),
                         ))
                       ])),
-                       const SizedBox(
+                     
+                      const SizedBox(
                         height: 20,
                       ),
+                      
                       Text.rich(TextSpan(children: [
                         const TextSpan(text: "Don't Have An Account? "),
                         WidgetSpan(

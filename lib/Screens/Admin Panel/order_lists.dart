@@ -51,12 +51,17 @@ class _NotificationScreenState extends State<OrderListScreen> {
                   itemCount: snapshot.data!.size,
                   itemBuilder: (context, index) {
                     final item = snapshot.data!.docs[index];
-                    return notificationWidget(
-                      item,
-                      item['name'],
-                      item['name'],
-                      item['Gender'] == "female" ? false : true,
-                       item['customer_email'], item['tailor_email'],context,
+                    return InkWell(
+                      onLongPress: (){
+                        FirebaseFirestore.instance.collection('order').doc(item.id).delete();
+                      },
+                      child: notificationWidget(
+                        item,
+                        item['name'],
+                        item['name'],
+                        item['Gender'] == "female" ? false : true,
+                         item['customer_email'], item['tailor_email'],context,
+                      ),
                     );
                   },
                 );
@@ -96,29 +101,41 @@ class _NotificationScreenState extends State<OrderListScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 300,
-                    child: Text(
-                      title + ' (Order Request)',
-                      style: TextStyle(
-                        color: NeumorphicTheme.baseColor(context),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24.0,
+              SizedBox(height: 5.0),
+Text(
+  'Long press to delete this order',
+  style: TextStyle(
+    color:Colors.red,
+    fontSize: 14.0,
+  ),
+),
+SizedBox(height: 20.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 200,
+                      child: Text(
+                        title + ' (Order Request)',
+                        style: TextStyle(
+                          color: NeumorphicTheme.baseColor(context),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                        ),
                       ),
                     ),
-                  ),
-                  
-                  NeumorphicIcon(
-                    isMale ? Icons.male : Icons.female,
-                    size: 40.0,
-                    style: NeumorphicStyle(
-                      color: NeumorphicTheme.baseColor(context),
+                    
+                    NeumorphicIcon(
+                      isMale ? Icons.male : Icons.female,
+                      size: 40.0,
+                      style: NeumorphicStyle(
+                        color: NeumorphicTheme.baseColor(context),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(height: 20.0),
             
@@ -154,11 +171,14 @@ class _NotificationScreenState extends State<OrderListScreen> {
           fontSize: 18.0,
         ),
       ),
-      Text(
-        customer_email.toString(),
-        style: TextStyle(
-          color: NeumorphicTheme.accentColor(context),
-          fontSize: 16.0,
+      Container(
+        width: 150,
+        child: Text(
+          customer_email.toString(),
+          style: TextStyle(
+            color: NeumorphicTheme.accentColor(context),
+            fontSize: 16.0,
+          ),
         ),
       ),
     ],
@@ -175,11 +195,14 @@ class _NotificationScreenState extends State<OrderListScreen> {
           fontSize: 18.0,
         ),
       ),
-      Text(
-        tailor_email.toString(),
-        style: TextStyle(
-          color: NeumorphicTheme.accentColor(context),
-          fontSize: 16.0,
+      Container(
+        width: 150,
+        child: Text(
+          tailor_email.toString(),
+          style: TextStyle(
+            color: NeumorphicTheme.accentColor(context),
+            fontSize: 16.0,
+          ),
         ),
       ),
     ],
@@ -303,9 +326,11 @@ class _NotificationScreenState extends State<OrderListScreen> {
               
                ],
              ),
+             
               
             ],
           ),
+          
         ),
       ),
     );

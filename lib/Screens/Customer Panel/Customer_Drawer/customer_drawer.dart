@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/customer%20orders/customer_order.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/my_controller.dart';
+import 'package:lets_do_laces_together/Screens/brand_panel/brands.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 import 'package:lets_do_laces_together/Utils/AppImages/app_images.dart';
 import 'package:lets_do_laces_together/auth_page.dart';
@@ -90,30 +91,54 @@ class _CustomDrawerState extends State<CustomerDrawerScreen> {
               Navigator.pop(context);
             },
           ),
+          // ListTile(
+          //   title: Row(
+          //     children: const <Widget>[
+          //       Icon(
+          //         Icons.fire_truck_outlined,
+          //         size: 23,
+          //         color: Colors.white,
+          //       ),
+          //       SizedBox(
+          //         width: 10,
+          //       ),
+          //       Padding(
+          //         padding: EdgeInsets.only(left: 8.0),
+          //         child: Text(
+          //           "Favorite",
+          //           style: TextStyle(color: Colors.white, fontSize: 20),
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          //   onTap: () {
+          //     Get.to(const AddToCartScreen());
+          //   },
+          // ),
           ListTile(
-            title: Row(
-              children: const <Widget>[
-                Icon(
-                  Icons.fire_truck_outlined,
-                  size: 23,
-                  color: Colors.white,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    "Favorite",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    title: Row(
+                      children: const <Widget>[
+                        Icon(
+                          Icons.badge_rounded,
+                          size: 23,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            "All Brand",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      Get.to(BrandScreen());
+                    },
                   ),
-                )
-              ],
-            ),
-            onTap: () {
-              Get.to(const AddToCartScreen());
-            },
-          ),
           ListTile(
                     title: Row(
                       children: const <Widget>[

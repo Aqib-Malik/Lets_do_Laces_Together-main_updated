@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/customer%20orders/feedback_screen.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 
 class CustomerNotificationScreen extends StatefulWidget {
@@ -16,7 +17,11 @@ class _NotificationScreenState extends State<CustomerNotificationScreen> {
   @override
   void initState() {
     super.initState();
-    _tailorsStream = FirebaseFirestore.instance.collection('order').where("customer_email",isEqualTo: FirebaseAuth.instance.currentUser!.email).snapshots();
+    _tailorsStream = FirebaseFirestore.instance
+        .collection('order')
+        .where("customer_email",
+            isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .snapshots();
   }
 
   @override
@@ -100,13 +105,13 @@ class _NotificationScreenState extends State<CustomerNotificationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 300,
+                    width: 250,
                     child: Text(
                       title + ' (Order Request)',
                       style: TextStyle(
                         color: NeumorphicTheme.baseColor(context),
                         fontWeight: FontWeight.bold,
-                        fontSize: 24.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
@@ -121,7 +126,7 @@ class _NotificationScreenState extends State<CustomerNotificationScreen> {
               ),
               SizedBox(height: 20.0),
               Text(
-                'Name:',
+                name,
                 style: TextStyle(
                   color: Color.fromARGB(252, 255, 255, 255),
                   fontWeight: FontWeight.bold,
@@ -130,124 +135,144 @@ class _NotificationScreenState extends State<CustomerNotificationScreen> {
               ),
               SizedBox(height: 5.0),
               Text(
-                name,
+                FirebaseAuth.instance.currentUser!.email.toString(),
                 style: TextStyle(
                   color: NeumorphicTheme.accentColor(context),
                   fontSize: 16.0,
                 ),
               ),
               SizedBox(height: 20.0),
-               item["is_rejected"]?Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                 item["is_rejected"]?
-                  Expanded(
-                    child:
-                    NeumorphicButton(
-                      onPressed: () {
-                       
-                      },
-                      child: Text(
-                        'Order Rejected',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      style: NeumorphicStyle(
-                        color: Color.fromARGB(255, 255, 7, 7),
-                        boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(30.0),
-                        ),
-                      ),
+              item["is_rejected"]
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        item["is_rejected"]
+                            ? Expanded(
+                                child: NeumorphicButton(
+                                  onPressed: () {},
+                                  child: Text(
+                                    'Order Rejected',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  style: NeumorphicStyle(
+                                    color: Color.fromARGB(255, 255, 7, 7),
+                                    boxShape: NeumorphicBoxShape.roundRect(
+                                      BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(),
+                      ],
                     )
-                  ):SizedBox(),
-               
-                ],
-              ):
-              
-             Column(
-               children: [
-                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      item["is_completed"]?
-                      Expanded(
-                        child:
-                        NeumorphicButton(
-                          onPressed: () {
-                           
-                          },
-                          child: Text(
-                            'Order Completed',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          style: NeumorphicStyle(
-                            color: Colors.amber,
-                            boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(30.0),
-                            ),
-                          ),
-                        )
-                      ):SizedBox(),
-                         SizedBox(width: 20.0),
-                         item["is_completed"]==false && item["is_approve"]?
-                      Expanded(
-                        child:NeumorphicButton(
-                          onPressed: () {
-                          },
-                          child: Text(
-                            'Not Compleed yet..',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          style: NeumorphicStyle(
-                            color: Color.fromARGB(255, 47, 255, 0),
-                            boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(30.0),
-                            ),
-                          ),
-                        )):SizedBox()
-                   
-                    ],
-                  ),
-                  Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                 item["is_completed"]==false && item["is_approve"]==false?
-                  Expanded(
-                    child:
-                    NeumorphicButton(
-                      onPressed: () {
-                       
-                      },
-                      child: Text(
-                        'Aprovel pending....',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
+                  : Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            item["is_completed"]
+                                ? Expanded(
+                                    child: NeumorphicButton(
+                                      onPressed: () {},
+                                      child: Text(
+                                        'Order Completed',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      style: NeumorphicStyle(
+                                        color: Colors.amber,
+                                        boxShape: NeumorphicBoxShape.roundRect(
+                                          BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(),
+                            SizedBox(width: 20.0),
+                            item["is_completed"] == false &&
+                                    item["is_approve"]
+                                ? Expanded(
+                                    child: NeumorphicButton(
+                                      onPressed: () {},
+                                      child: Text(
+                                        'Not Completed yet..',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      style: NeumorphicStyle(
+                                        color: Color.fromARGB(255, 47, 255, 0),
+                                        boxShape: NeumorphicBoxShape.roundRect(
+                                          BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(),
+                          ],
                         ),
-                      ),
-                      style: NeumorphicStyle(
-                        color: Colors.amber,
-                        boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(30.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            item["is_completed"] == false &&
+                                    item["is_approve"] == false
+                                ? Expanded(
+                                    child: NeumorphicButton(
+                                      onPressed: () {},
+                                      child: Text(
+                                        'Approval pending....',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      style: NeumorphicStyle(
+                                        color: Colors.amber,
+                                        boxShape: NeumorphicBoxShape.roundRect(
+                                          BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(),
+                          ],
                         ),
-                      ),
-                    )
-                  ):SizedBox(),
-               
-                ],
-              ),
-              
-               ],
-             ),
-              
+                        if (item["is_completed"] == true) // Add this condition
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                NeumorphicButton(
+                                  onPressed: () {
+                                    Get.to(FeedbackPage(tailorEmail:item['tailor_email']));
+                                    // Add feedback logic here
+                                  },
+                                  child: Text(
+                                    'Give Feedback',
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  style: NeumorphicStyle(
+                                    color: Colors.blue,
+                                    boxShape: NeumorphicBoxShape.roundRect(
+                                      BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
             ],
           ),
         ),

@@ -121,13 +121,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 300,
+                    width: 200,
                     child: Text(
                       title + ' (Order Request)',
                       style: TextStyle(
                         color: NeumorphicTheme.baseColor(context),
                         fontWeight: FontWeight.bold,
-                        fontSize: 24.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),

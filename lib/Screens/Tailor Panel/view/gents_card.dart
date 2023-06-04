@@ -107,10 +107,8 @@ class _GentsCardState extends State<GentsCard> {
                                     top: 0,
                                     child: IconButton(
                                       onPressed: () {
-                                        authController.realtimeDatabaseDelete(
-                                            list[index]['id'].toString(),
-                                            context);
-                                        setState(() {});
+                                                                                 FirebaseFirestore.instance.collection('Posts').doc(list[index]['id']).delete();
+
                                       },
                                       icon: Icon(
                                         Icons.delete,

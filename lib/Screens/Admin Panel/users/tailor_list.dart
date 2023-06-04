@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 
-class TailorsList extends StatelessWidget {
+class TailorsListt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,13 @@ class TailorsList extends StatelessWidget {
             itemBuilder: (context, index) {
               DocumentSnapshot user = snapshot.data!.docs[index];
               return
-  userWidget(user['name'],user['email'],user['imgUrl'],user['phone'],user['city']);
+              InkWell(
+                onTap: (){
+                  FirebaseFirestore.instance.collection('shop').doc(user.id).delete();
+                },
+                
+                child: 
+  userWidget(user['name'],user['email'],user['imgUrl'],user['phone'],user['city']),);
               //  ListTile(
               //   title: Text(user['name']),
               //   subtitle: Text(user['email']),
@@ -62,16 +68,21 @@ class TailorsList extends StatelessWidget {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                   
-
-                    children: [
-                      Text(email),
-                      SizedBox(height: 4),
-                      Text(phone),
-                    ],
+                  SingleChildScrollView(
+                    child: Container(
+                      width: 130,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                       
+                    
+                        children: [
+                          Text(email),
+                          SizedBox(height: 4),
+                          Text(phone),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

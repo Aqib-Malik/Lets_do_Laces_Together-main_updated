@@ -162,6 +162,7 @@ class AuthController extends GetxController {
     String? about,
     String? password,
     String? img,
+    int? rate,
     BuildContext context,
   ) async {
     showDialog(
@@ -196,6 +197,7 @@ class AuthController extends GetxController {
           'about': about,
           'password': password,
           'imgUrl': img,
+          'rate':rate
         }).then((value) {
           Navigator.of(context).pop();
           print("shop add");

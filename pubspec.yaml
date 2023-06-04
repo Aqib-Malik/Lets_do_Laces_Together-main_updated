@@ -69,6 +69,7 @@ dependencies:
   whatsapp_unilink: ^2.1.0
   flutter_rating_bar: ^4.0.1
   flutter_neumorphic: ^3.2.0
+  flutter_icons: ^1.1.0
 
 
 dev_dependencies:

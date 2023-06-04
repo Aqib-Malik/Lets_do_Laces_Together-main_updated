@@ -70,6 +70,7 @@ class _TailorListState extends State<TailorList> {
                       list[index]['phone'],
                       list[index]['shop'],
                       list[index]['email'],
+                      list[index]['rate'],
                     );
                   },
                 );
@@ -85,7 +86,7 @@ class _TailorListState extends State<TailorList> {
 
 
 
-  tailor_widget(image, name, title, phone, location,email) {
+  tailor_widget(image, name, title, phone, location,email,rate) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Card(
@@ -153,13 +154,31 @@ class _TailorListState extends State<TailorList> {
                     ),
                   ],
                 ),
+                 SizedBox(height: 4),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.price_change,
+                      size: 16,
+                      color: Colors.grey[700],
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      rate.toString(),
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                  ],
+                ),
+               
                 SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Get.to(MeasurementForm(email: email,));
+                        Get.to(MeasurementForm(email: email,rate: rate.toString()));
                       },
                       child: Text(
                         'Order',
@@ -183,6 +202,7 @@ class _TailorListState extends State<TailorList> {
                     ElevatedButton(
                       onPressed: () {
                         Get.to(ExpertScreen(
+                          rate:rate.toString(),
                           email: email,
                           imageUrl: image,
                           name: name,

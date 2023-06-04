@@ -62,16 +62,21 @@ class CustomerList extends StatelessWidget {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                   
-
-                    children: [
-                      Text(email),
-                      SizedBox(height: 4),
-                      Text(phone),
-                    ],
+                  SingleChildScrollView(
+                    child: Container(
+                      width: 130,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                       
+                    
+                        children: [
+                          Text(email),
+                          SizedBox(height: 4),
+                          Text(phone),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

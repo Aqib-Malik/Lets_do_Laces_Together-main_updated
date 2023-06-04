@@ -25,6 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final authController = Get.put(AuthController());
 
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _rateController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -265,6 +266,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   }
                 },
               ),
+ CustomTextField(
+                obscureText: false,
+                controller: _rateController,
+                icon: Icon(Icons.price_check, color: AppColors.backGroundColor),
+                hintText: 'Rate',
+                validate: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'rater is Required';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
 
               CustomTextField(
                 obscureText: false,
@@ -383,6 +397,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 _aboutMeController.text.trim(),
                                 _passwordController.text.trim(),
                                 imageUrl.toString(),
+                                int.parse(_rateController.text),
                                 context,
                               );
                             }

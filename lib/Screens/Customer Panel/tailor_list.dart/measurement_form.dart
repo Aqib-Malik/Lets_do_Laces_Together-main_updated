@@ -2,16 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lets_do_laces_together/Screens/Customer%20Panel/my_controller.dart';
+import 'package:lets_do_laces_together/Screens/Customer%20Panel/tailor_list.dart/cash_on_dil.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
 
 class MeasurementForm extends StatefulWidget {
   final String email;
+  final String rate;
   // MeasurementForm({required this.email,
   // });
 
   @override
    
-  MeasurementForm({super.key, required this.email});
+  MeasurementForm({super.key, required this.email, required this.rate});
   _MeasurementFormState createState() => _MeasurementFormState();
 }
 
@@ -166,7 +168,12 @@ class _MeasurementFormState extends State<MeasurementForm> {
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                     onPressed: () async {
+                      
                       if (_formKey.currentState!.validate()) {
+                       
+
+                         _formKey.currentState!.save();
+                          Get.to(CashOnDeliveryScreen(func:()async{
                          _formKey.currentState!.save();
                         await FirebaseFirestore.instance
                             .collection('order')
@@ -183,6 +190,7 @@ class _MeasurementFormState extends State<MeasurementForm> {
                           "is_pending": false,
                           "is_completed":false,
                           "is_rejected":false,
+                          "rate":this.widget.rate,
                           "Gender":_gender,
                           "customer_email":controller.email.value.toString(),
                           "customer_image":controller.image.value.toString(),
@@ -202,7 +210,45 @@ class _MeasurementFormState extends State<MeasurementForm> {
                             ),
                           );
                         });
-                        // Save the form
+                        
+                       }));
+                      
+                        // await FirebaseFirestore.instance
+                        //     .collection('order')
+                        //     .add({
+                        //   "name": _name,
+                        //   "neckSize":
+                        //       _neckSize, // Initialize with default values
+                        //   "chestSize": _chestSize,
+                        //   "waistSize": _waistSize,
+                        //   "hipSize": _hipSize,
+                        //   "inseamLength": _inseamLength,
+                        //   "tailor_email":this.widget.email,
+                        //   "is_approve": false,
+                        //   "is_pending": false,
+                        //   "is_completed":false,
+                        //   "is_rejected":false,
+                        //   "rate":this.widget.rate,
+                        //   "Gender":_gender,
+                        //   "customer_email":controller.email.value.toString(),
+                        //   "customer_image":controller.image.value.toString(),
+                        //   "customer_name":controller.name.value.toString(),
+                        //   "customer_address":controller.address.value.toString(),
+                        //   "customer_phone":controller.phone.value.toString(),
+                        // }).whenComplete(() {
+                         
+
+                        //   // TODO: Process the form data (e.g., save to database)
+
+                        //   // Navigate to a success page
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => SuccessPage(),
+                        //     ),
+                        //   );
+                        // });
+                        // // Save the form
                       }
                       // Get.to(MeasurementForm());
                     },

@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lets_do_laces_together/Screens/Admin%20Panel/brand_screen_admin.dart';
 import 'package:lets_do_laces_together/Screens/Admin%20Panel/order_lists.dart';
+import 'package:lets_do_laces_together/Screens/Admin%20Panel/users/tailor_list.dart';
 import 'package:lets_do_laces_together/Utils/AppColors/app_colors.dart';
-import 'package:lets_do_laces_together/Views/users/customer_list.dart';
-import 'package:lets_do_laces_together/Views/users/tailor_list.dart';
+import 'package:lets_do_laces_together/Screens/Admin%20Panel/users/customer_list.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
@@ -86,7 +87,7 @@ setdata()async{
                   children: [
                     InkWell(
                       onTap: (){
-                        Get.to(TailorsList());
+                        Get.to(TailorsListt());
                       },
                       child: SizedBox(
                         height: 160,
@@ -172,7 +173,7 @@ setdata()async{
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Icon(
-                                Icons.shop,
+                                Icons.shopify_outlined,
                                 size: 50,
                                 color: Colors.white,
                               ),
@@ -205,49 +206,49 @@ setdata()async{
                     SizedBox(
                       height: 160,
                       width: 160,
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(13),
-                        ),
-                        color: Colors.blueGrey[300],
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.warning,
-                              size: 50,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 19),
-                              child: Row(
-                                children: const [
-                                  Text(
-                                    'Pending Requests:',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    '6',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+                      child: InkWell(
+                         
+                      onTap: (){
+                        Get.to(BrandScreenAdmin());
+                      },
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          color: Colors.blueGrey[300],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.branding_watermark_sharp,
+                                size: 50,
+                                color: Colors.white,
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
+                              SizedBox(
+                                height: 40,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 19),
+                                child: Row(
+                                  children: const [
+                                    Text(
+                                      'Brands',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -256,85 +257,108 @@ setdata()async{
               ],
             ),
             SizedBox(
-              child: Card(
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(23),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                maxRadius: 25,
-                                backgroundColor: Colors.grey[300],
-                                child: const Icon(
-                                  Icons.manage_accounts,
-                                  size: 30,
-                                  color: Colors.lightBlue,
-                                ),
+              child: InkWell(
+                
+                child: Card(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(23),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: (){
+                                Get.to(TailorsListt());
+                              },
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    maxRadius: 25,
+                                    backgroundColor: Colors.grey[300],
+                                    child: const Icon(
+                                      Icons.manage_accounts,
+                                      size: 30,
+                                      color: Colors.lightBlue,
+                                    ),
+                                  ),
+                                  const Text('Tailors')
+                                ],
                               ),
-                              const Text('Customers')
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                maxRadius: 25,
-                                backgroundColor: Colors.grey[300],
-                                child: const Icon(
-                                  Icons.person,
-                                  size: 30,
-                                  color: Colors.lightBlue,
-                                ),
+                            ),
+                            InkWell(
+                              onTap: (){
+                               Get.to(CustomerList());
+                              },
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    maxRadius: 25,
+                                    backgroundColor: Colors.grey[300],
+                                    child: const Icon(
+                                      Icons.person,
+                                      size: 30,
+                                      color: Colors.lightBlue,
+                                    ),
+                                  ),
+                                  const Text('Customers')
+                                ],
                               ),
-                              const Text('Complains')
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                maxRadius: 25,
-                                backgroundColor: Colors.grey[300],
-                                child: const Icon(
-                                  Icons.supervisor_account,
-                                  size: 30,
-                                  color: Colors.lightBlue,
-                                ),
+                            ),
+                            InkWell(
+                              onTap: (){
+                                Get.to(OrderListScreen());
+                              },
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    maxRadius: 25,
+                                    backgroundColor: Colors.grey[300],
+                                    child: const Icon(
+                                      Icons.shopify_rounded,
+                                      size: 30,
+                                      color: Colors.lightBlue,
+                                    ),
+                                  ),
+                                  const Text('Orders')
+                                ],
                               ),
-                              const Text('Earnings')
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                maxRadius: 25,
-                                backgroundColor: Colors.grey[300],
-                                child: const Icon(
-                                  Icons.manage_accounts,
-                                  size: 30,
-                                  color: Colors.lightBlue,
-                                ),
+                            ),
+                            InkWell(
+                              onTap: (){
+                                Get.to(BrandScreenAdmin());
+                              },
+                              child: Column(
+                                children: [
+                                  CircleAvatar(
+                                    maxRadius: 25,
+                                    backgroundColor: Colors.grey[300],
+                                    child: const Icon(
+                                      Icons.branding_watermark_outlined,
+                                      size: 30,
+                                      color: Colors.lightBlue,
+                                    ),
+                                  ),
+                                  const Text('Brands')
+                                ],
                               ),
-                              const Text('Blocked')
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

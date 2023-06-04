@@ -106,11 +106,7 @@ class _LadiesCardState extends State<LadiesCard> {
                                       top: 0,
                                       child: IconButton(
                                         onPressed: () {
-                                          Navigator.pop(context);
-                                          authController.realtimeDatabaseDelete(
-                                              list[index]['id'].toString(),
-                                              context);
-                                          setState(() {});
+                                         FirebaseFirestore.instance.collection('Posts').doc(list[index]['id']).delete();
                                         },
                                         icon: Icon(
                                           Icons.delete,
